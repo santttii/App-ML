@@ -4,63 +4,81 @@ const CLIENT_SECRET = 'tu_cliente_secreto'; // Sustituye con tu CLIENT_SECRET
 const REDIRECT_URI = 'https://santttii.github.io/App-ML/'; // Cambia con la URL de GitHub Pages
 
 // El flujo de autorización
-document.getElementById('authButton').addEventListener('click', () => {
-    // Paso 1: Redirigir al usuario a la página de autorización de Mercado Libre
-    const authUrl = `https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&scope=read%20write%20offline_access`;
+function iniciarAutorizacion() {
+    const clientId = 'TU_CLIENT_ID';
+    const redirectUri = 'https://tudominio.com/callback';
+    const authUrl = `https://auth.mercadolibre.com.ar/authorization?response_type=code&client_id=${clientId}&redirect_uri=${encodeURIComponent(redirectUri)}`;
     window.location.href = authUrl;
-});
-
-// Función que se ejecutará cuando Mercado Libre redirija a la URL del callback con el código
-function getAccessToken(code) {
-    const params = new URLSearchParams();
-    params.append('grant_type', 'authorization_code');
-    params.append('code', code);
-    params.append('redirect_uri', REDIRECT_URI);
-    params.append('client_id', CLIENT_ID);
-    params.append('client_secret', CLIENT_SECRET);
-
-    fetch('https://api.mercadolibre.com/oauth/token', {
-        method: 'POST',
-        body: params
-    })
-    .then(response => response.json())
-    .then(data => {
-        const accessToken = data.access_token;
-        console.log("Access Token:", accessToken);
-        sendMessage(accessToken);
-    })
-    .catch(error => console.error('Error obteniendo el token:', error));
 }
 
-// Función para enviar el mensaje
-function sendMessage(accessToken) {
-    fetch('https://api.mercadolibre.com/messages', {
+function obtenerCodigoAutorizacion() {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get('code');
+}
+
+const authCode = obtenerCodigoAutorizacion();
+if (authCode) {
+    // Llamar a la función para intercambiar el código por un token de acceso
+    obtenerTokenDeAcceso(authCode);
+}
+
+// En tu servidor (por ejemplo, utilizando Node.js con Express)
+app.post('/obtener-token', async (req, res) => {
+    const authCode = req.body.authCode;
+    const clientId = 'TU_CLIENT_ID';
+    const clientSecret = 'TU_CLIENT_SECRET';
+    const redirectUri = 'https://tudominio.com/callback';
+
+    const response = await fetch('https://api.mercadolibre.com/oauth/token', {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${accessToken}`,
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/x-www-form-urlencoded',
         },
-        body: JSON.stringify({
-            order_id: 'ID_DEL_PEDIDO', // Aquí debes poner el ID del pedido real
-            text: 'Hola, gracias por tu compra. Tu pedido estará llegando pronto!'
-        })
-    })
-    .then(response => response.json())
-    .then(data => {
-        document.getElementById('mensaje').style.display = 'block';
-        document.getElementById('resultadoMensaje').innerText = '¡Mensaje enviado correctamente!';
-    })
-    .catch(error => {
-        document.getElementById('mensaje').style.display = 'block';
-        document.getElementById('resultadoMensaje').innerText = 'Hubo un error al enviar el mensaje.';
+        body: new URLSearchParams({
+            grant_type: 'authorization_code',
+            client_id: clientId,
+            client_secret: clientSecret,
+            code: authCode,
+            redirect_uri: redirectUri,
+        }),
     });
+
+    const data = await response.json();
+    res.json(data);
+});
+
+async function obtenerTokenDeAcceso(authCode) {
+    const response = await fetch('/obtener-token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ authCode }),
+    });
+
+    const data = await response.json();
+    // Almacenar el token de acceso de forma segura
+    localStorage.setItem('access_token', data.access_token);
 }
 
-// Detectar el código de autorización de Mercado Libre
-if (window.location.search.includes('code=')) {
-    const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
-    if (code) {
-        getAccessToken(code);
-    }
+async function renovarTokenDeAcceso(refreshToken) {
+    const clientId = 'TU_CLIENT_ID';
+    const clientSecret = 'TU_CLIENT_SECRET';
+
+    const response = await fetch('https://api.mercadolibre.com/oauth/token', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: new URLSearchParams({
+            grant_type: 'refresh_token',
+            client_id: clientId,
+            client_secret: clientSecret,
+            refresh_token: refreshToken,
+        }),
+    });
+
+    const data = await response.json();
+    // Actualizar el token de acceso almacenado
+    localStorage.setItem('access_token', data.access_token);
 }
