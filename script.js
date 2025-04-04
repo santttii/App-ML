@@ -1,7 +1,7 @@
 // Replace with your Mercado Libre app credentials
 const CLIENT_ID = 'tu_cliente_id'; // Sustituye con tu CLIENT_ID
 const CLIENT_SECRET = 'tu_cliente_secreto'; // Sustituye con tu CLIENT_SECRET
-const REDIRECT_URI = 'https://tu-url-github-pages.github.io/callback'; // Cambia con la URL de GitHub Pages
+const REDIRECT_URI = 'https://santttii.github.io/App-ML/'; // Cambia con la URL de GitHub Pages
 
 // El flujo de autorización
 document.getElementById('authButton').addEventListener('click', () => {
