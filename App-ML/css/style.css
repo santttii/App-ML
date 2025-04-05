@@ -1,0 +1,361 @@
+:root {
+    --primary-color: #3483fa;
+    --secondary-color: #fff159;
+    --text-color: #333;
+    --background-color: #f5f5f5;
+    --card-bg: #ffffff;
+    --border-color: #e5e5e5;
+    --success-color: #39b54a;
+    --warning-color: #f9a825;
+    --danger-color: #ff5252;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+    background-color: var(--background-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 30px;
+}
+
+h1, h2, h3 {
+    color: var(--text-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+button {
+    cursor: pointer;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: white;
+    border: 1px solid var(--primary-color);
+    color: var(--primary-color);
+}
+
+#login-section {
+    text-align: center;
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 30px;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#login-section h2 {
+    margin-bottom: 20px;
+}
+
+#login-section p {
+    margin-bottom: 30px;
+}
+
+#login-section button {
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+nav ul li {
+    flex: 1;
+    text-align: center;
+}
+
+nav ul li a {
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    padding: 15px 0;
+    transition: background-color 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: rgba(52, 131, 250, 0.1);
+}
+
+nav ul li a.active {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.content-section {
+    background-color: var(--card-bg);
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.stats-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.stat-card {
+    background-color: var(--card-bg);
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    border-left: 4px solid var(--primary-color);
+}
+
+.stat-card h3 {
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #666;
+}
+
+.stat-card p {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filters input,
+.filters select {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+.list-container {
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    max-height: 500px;
+    overflow-y: auto;
+}
+
+.item-card {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.item-card:last-child {
+    border-bottom: none;
+}
+
+.item-card .item-details {
+    flex: 1;
+}
+
+.item-card .item-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.message-container {
+    display: flex;
+    gap: 20px;
+    height: 600px;
+}
+
+.message-list {
+    flex: 1;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-list input {
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid var(--border-color);
+}
+
+#messages-list {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.message-item {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    cursor: pointer;
+}
+
+.message-item:hover {
+    background-color: #f5f5f5;
+}
+
+.message-item.unread {
+    background-color: rgba(52, 131, 250, 0.1);
+}
+
+.message-item .message-from {
+    font-weight: bold;
+}
+
+.message-item .message-preview {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 250px;
+    color: #666;
+}
+
+.message-detail {
+    flex: 2;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-header {
+    padding: 15px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.message-content {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+}
+
+.message-reply {
+    padding: 15px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.message-reply textarea {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    resize: none;
+}
+
+.setting-group {
+    margin-bottom: 30px;
+}
+
+.setting-item {
+    margin-top: 15px;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 4px;
+}
+
+.setting-item label {
+    display: block;
+    margin-bottom: 8px;
+}
+
+.setting-item textarea,
+.setting-item select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    margin-bottom: 10px;
+}
+
+/* Status badges */
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.status-pending {
+    background-color: #FFF9C4;
+    color: #F57F17;
+}
+
+.status-paid {
+    background-color: #C8E6C9;
+    color: #2E7D32;
+}
+
+.status-shipped {
+    background-color: #BBDEFB;
+    color: #1565C0;
+}
+
+.status-delivered {
+    background-color: #B3E5FC;
+    color: #0277BD;
+}
+
+.status-cancelled {
+    background-color: #FFCDD2;
+    color: #C62828;
+}
+
+@media (max-width: 768px) {
+    .message-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .stats-container {
+        grid-template-columns: 1fr;
+    }
+
+    nav ul {
+        flex-direction: column;
+    }
+}

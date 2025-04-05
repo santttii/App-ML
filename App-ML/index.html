@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>App MercadoLibre - Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>App MercadoLibre</h1>
+            <div id="user-info" class="hidden">
+                <span id="username"></span>
+                <button id="logout-btn">Cerrar Sesión</button>
+            </div>
+        </header>
+
+        <div id="login-section">
+            <h2>Iniciar sesión con MercadoLibre</h2>
+            <p>Para comenzar a usar la aplicación, necesitas autorizarla para acceder a tu cuenta de MercadoLibre.</p>
+            <button id="login-btn" class="primary-btn">Conectar con MercadoLibre</button>
+        </div>
+
+        <div id="dashboard" class="hidden">
+            <nav>
+                <ul>
+                    <li><a href="#" data-section="dashboard-home" class="active">Dashboard</a></li>
+                    <li><a href="#" data-section="orders">Pedidos</a></li>
+                    <li><a href="#" data-section="messages">Mensajes</a></li>
+                    <li><a href="#" data-section="shipping">Envíos</a></li>
+                    <li><a href="#" data-section="settings">Configuración</a></li>
+                </ul>
+            </nav>
+
+            <main>
+                <section id="dashboard-home" class="content-section">
+                    <h2>Dashboard</h2>
+                    <div class="stats-container">
+                        <div class="stat-card">
+                            <h3>Ventas del Mes</h3>
+                            <p id="monthly-sales">Cargando...</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Pedidos Pendientes</h3>
+                            <p id="pending-orders">Cargando...</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Mensajes sin Responder</h3>
+                            <p id="unread-messages">Cargando...</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Envíos del Día</h3>
+                            <p id="daily-shipments">Cargando...</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="orders" class="content-section hidden">
+                    <h2>Pedidos</h2>
+                    <div class="filters">
+                        <select id="order-status-filter">
+                            <option value="all">Todos los estados</option>
+                            <option value="pending">Pendientes</option>
+                            <option value="paid">Pagados</option>
+                            <option value="shipped">Enviados</option>
+                            <option value="delivered">Entregados</option>
+                            <option value="cancelled">Cancelados</option>
+                        </select>
+                        <input type="text" id="order-search" placeholder="Buscar por ID o nombre del comprador">
+                    </div>
+                    <div id="orders-list" class="list-container">
+                        <p>Cargando pedidos...</p>
+                    </div>
+                </section>
+
+                <section id="messages" class="content-section hidden">
+                    <h2>Mensajes</h2>
+                    <div class="message-container">
+                        <div class="message-list">
+                            <input type="text" id="message-search" placeholder="Buscar mensajes">
+                            <div id="messages-list">
+                                <p>Cargando mensajes...</p>
+                            </div>
+                        </div>
+                        <div class="message-detail hidden" id="message-detail">
+                            <div class="message-header">
+                                <h3 id="message-title">Título del mensaje</h3>
+                                <span id="message-date">Fecha</span>
+                            </div>
+                            <div id="message-content" class="message-content">
+                                <p>Selecciona un mensaje para ver su contenido.</p>
+                            </div>
+                            <div class="message-reply">
+                                <textarea id="reply-text" placeholder="Escribe tu respuesta..."></textarea>
+                                <button id="send-reply" class="primary-btn">Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="shipping" class="content-section hidden">
+                    <h2>Envíos</h2>
+                    <div class="filters">
+                        <input type="date" id="shipping-date" value="">
+                        <button id="load-shipping" class="secondary-btn">Cargar envíos</button>
+                        <button id="print-all-labels" class="primary-btn">Imprimir todas las etiquetas</button>
+                    </div>
+                    <div id="shipping-list" class="list-container">
+                        <p>Selecciona una fecha para ver los envíos.</p>
+                    </div>
+                </section>
+
+                <section id="settings" class="content-section hidden">
+                    <h2>Configuración</h2>
+                    <div class="setting-group">
+                        <h3>Mensajes Automáticos</h3>
+                        <div class="setting-item">
+                            <label for="auto-msg-shipping">Mensaje automático cuando el pedido está en camino:</label>
+                            <textarea id="auto-msg-shipping" rows="4"></textarea>
+                            <button class="save-setting">Guardar</button>
+                        </div>
+                    </div>
+                    <div class="setting-group">
+                        <h3>Impresión de Etiquetas</h3>
+                        <div class="setting-item">
+                            <label for="label-printer">Impresora predeterminada:</label>
+                            <select id="label-printer">
+                                <option value="default">Impresora del sistema</option>
+                                <option value="pdf">Guardar como PDF</option>
+                            </select>
+                            <button class="save-setting">Guardar</button>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/dashboard.js"></script>
+    <script src="js/orders.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="js/shipping.js"></script>
+</body>
+</html>
